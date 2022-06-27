@@ -79,7 +79,7 @@ export default class App extends React.Component {
                 {this.state.posts.map(post => 
                 <TableRow>
                     <TableCell component="th" scope="row">
-                    {post.yyyymm}~
+                    {post.yyyymm}
                     </TableCell>
                     <TableCell align="left">{post.user_name}</TableCell>
                     <TableCell align="left">{post.project_code}:{post.product_name}）{post.project_name}</TableCell>

@@ -66,7 +66,7 @@ app.post("/add", (req, res) => {
         console.log("接続終了(異常)");
         throw err;
       }
-      console.log(results);
+      // console.log(results);
       // res.send(results);
     }
   );
