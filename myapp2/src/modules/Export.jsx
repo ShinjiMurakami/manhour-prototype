@@ -30,7 +30,7 @@ export default function Export(props) {
         .catch(function (error) {
             console.log("error", error);
         })
-      };
+  };
 
   return (
       <>

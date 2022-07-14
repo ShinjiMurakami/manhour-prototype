@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from './modules/Header';
 import Form from './modules/Form';
 import List from './modules/List';
 import Export from './modules/Export';
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import UserDraggable from './modules/UserDraggable';
+import UserDraggablecopy from './modules/UserDraggable copy';
 import AddUser from './modules/AddUser';
 import { useAuth0 } from "@auth0/auth0-react";
+// import axios from 'axios';
 
 
 export default function App() {
@@ -29,6 +32,32 @@ export default function App() {
     process_detail: ""
   });
 
+  const axiosBase = require('axios');
+  const axios = axiosBase.create({
+    baseURL: 'http://localhost:3001'
+  });
+  const [data, setData] = useState('');
+  const [userinfo, setUserinfo] = useState('');
+
+  useEffect(() => {
+    getUserInfo(userinfo);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[userinfo]);
+
+  const getUserInfo = (userinfo) => {
+    const params = new URLSearchParams();
+    params.append('search', userinfo);
+    // axios.post('http://localhost:3001/userinfo', params)
+    axios.post('/userinfo', params)
+        .then(response => response.data)
+        .then((result) => {
+          setData(result);
+        })
+        .catch(function (error) {
+            console.log("error", error);
+        })
+  };
+
   return (
     <>
       {isAuthenticated ? (
@@ -36,26 +65,23 @@ export default function App() {
         <>
           <Router>
             {/* ヘッダー */}
-            <Header />
+            <Header user={user} logout={logout} getUser={data} setUserinfo={setUserinfo} />
             {/* フォーム */}
             <Form display={display} setDisplay={setDisplay} setFlag={setFlag} setValue={setValue} />
             {/* テーブル(検索結果の表示) */}
             <List searchResult={display} displayFlag={flag} postValue={value} />
-            <Export postValue={value} />
+            {data.map(post => {
+              if (post.is_admin_user === 1) {
+                return (<Export postValue={value} />)
+              } else {
+                return null
+              }
+            })}
+            <UserDraggablecopy postValue={value} />
+            <UserDraggable postValue={value} />
             <Routes>
               <Route path="/adduser" element={<AddUser />} />
             </Routes>
-            <div>
-                <img src={user.picture} alt={user.name} />
-                <h6>{user.name}({user.email})</h6>
-                <button
-                  onClick={() => {
-                    logout({ returnTo: window.location.origin });
-                  }}
-                >
-                Log out
-                </button>
-              </div>
           </Router>
         </>
       ) : isLoading ? (

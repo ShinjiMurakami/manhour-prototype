@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import TextField from "@material-ui/core/TextField";
-import Grid from '@material-ui/core/Grid';
+import TextField from "@mui/material/TextField";
+import Grid from '@mui/material/Grid';
 // import Button from '@material-ui/core/Button'
 // import axios from 'axios';
 
@@ -43,19 +43,19 @@ export default function Form(props) {
     return (
         <>
             
-            <Grid container rowSpacing={8}>
+            <Grid container rowSpacing={0} >
                 <form>
-                    <Grid item>
+                    <Grid item xs={8}>
                         <TextField
                             label="検索値"
                             value={search}
                             onChange={funSetSearch}
                         />
                     </Grid>
-                    <Grid item>
+                    {/* <Grid item> */}
 
                         {/* <Button color="inherit" onClick={funPost}>検索</Button> */}
-                    </Grid>
+                    {/* </Grid> */}
 
                     
                 </form>
