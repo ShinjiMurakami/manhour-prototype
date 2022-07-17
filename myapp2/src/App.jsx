@@ -4,8 +4,8 @@ import Header from './modules/Header';
 import Form from './modules/Form';
 import List from './modules/List';
 import Export from './modules/Export';
-import UserDraggable from './modules/UserDraggable';
-import UserDraggablecopy from './modules/UserDraggable copy';
+import UserDraggableBeautiful from './modules/UserDraggable_beautiful';
+import UserDraggableSmooth from './modules/UserDraggable_smooth';
 import AddUser from './modules/AddUser';
 import { useAuth0 } from "@auth0/auth0-react";
 // import axios from 'axios';
@@ -77,8 +77,8 @@ export default function App() {
                 return null
               }
             })}
-            <UserDraggablecopy postValue={value} />
-            <UserDraggable postValue={value} />
+            <UserDraggableSmooth postValue={value} />
+            <UserDraggableBeautiful postValue={value} />
             <Routes>
               <Route path="/adduser" element={<AddUser />} />
             </Routes>
