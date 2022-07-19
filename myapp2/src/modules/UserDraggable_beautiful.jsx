@@ -28,11 +28,12 @@ export const UserDraggable  = (props) => {
 ]
 
 const [ users, setUsers ] = useState([]);
+const baseURL = process.env.REACT_APP_BASEURL;
 
 const funPost = () => {
   const params = new URLSearchParams();
   params.append('search', value);
-  axios.post('http://localhost:3001/api', params)
+  axios.post(`${baseURL}/api`, params)
       .then(response => response.data)
       .then((result) => {
         setUsers(result);

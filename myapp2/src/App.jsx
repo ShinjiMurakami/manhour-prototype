@@ -8,7 +8,7 @@ import UserDraggableBeautiful from './modules/UserDraggable_beautiful';
 import UserDraggableSmooth from './modules/UserDraggable_smooth';
 import AddUser from './modules/AddUser';
 import { useAuth0 } from "@auth0/auth0-react";
-// import axios from 'axios';
+import axios from 'axios';
 
 
 export default function App() {
@@ -32,10 +32,8 @@ export default function App() {
     process_detail: ""
   });
 
-  const axiosBase = require('axios');
-  const axios = axiosBase.create({
-    baseURL: 'http://localhost:3001'
-  });
+  const baseURL = process.env.REACT_APP_BASEURL;
+  console.log(baseURL);
   const [data, setData] = useState('');
   const [userinfo, setUserinfo] = useState('');
 
@@ -47,8 +45,7 @@ export default function App() {
   const getUserInfo = (userinfo) => {
     const params = new URLSearchParams();
     params.append('search', userinfo);
-    // axios.post('http://localhost:3001/userinfo', params)
-    axios.post('/userinfo', params)
+    axios.post(`${baseURL}/userinfo`, params)
         .then(response => response.data)
         .then((result) => {
           setData(result);

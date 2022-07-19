@@ -17,6 +17,7 @@ const useStyles = styled({
         minWidth: 650,
     },
 });
+const baseURL = process.env.REACT_APP_BASEURL;
 
 export default class App extends React.Component {
     constructor(props) {
@@ -34,10 +35,9 @@ export default class App extends React.Component {
 
     funPost(value) {
         // console.log(value);
-
         const params = new URLSearchParams();
         params.append('search', value);
-        axios.post('http://localhost:3001/api', params)
+        axios.post(`${baseURL}/api`, params)
             .then(response => response.data)
             .then((result) => {this.setState({posts: result})})            
             .catch(function (error) {

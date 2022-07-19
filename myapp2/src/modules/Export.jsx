@@ -13,6 +13,8 @@ export default function Export(props) {
   const yyyymmdd = format(new Date(), 'yyyyMMdd');
   const filename = `manhour-list_${yyyymmdd}_${value}.csv`;
   const fetchDoneRef = useRef();
+  const baseURL = process.env.REACT_APP_BASEURL;
+
   //フェッチの完了を判断するステート(完了後に false とする)
   const [fetchDone, setFetchDone] = useState(false);
   // データ取得
@@ -20,7 +22,7 @@ export default function Export(props) {
     setFetchDone(true);
     const params = new URLSearchParams();
     params.append('search', value);
-    axios.post('http://localhost:3001/csvexport', params)
+    axios.post(`${baseURL}/csvexport`, params)
         .then(response => response.data)
         .then((result) => {
           setData(result);

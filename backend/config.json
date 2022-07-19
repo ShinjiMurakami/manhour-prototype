@@ -1,0 +1,16 @@
+{
+    "development": {
+      "port": "3001",
+      "host": "192.168.11.18",
+      "user": "root",
+      "password": "winmrsw1924",
+      "database": "manhourdb"
+    },
+    "production": {
+      "port": "3001",
+      "host": "manhour-plottype-mysql.ceu9ml5jdncv.ap-northeast-1.rds.amazonaws.com",
+      "user": "manhour_user",
+      "password": "mrsw1924",
+      "database": "manhourdb"
+    }
+}

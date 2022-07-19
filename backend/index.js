@@ -3,8 +3,13 @@ const express = require('express');
 // パッケージを読み込み
 const mysql = require('mysql');
 const app = express();
-require('dotenv').config();
-const port = process.env.PORT;
+var config = require('./config.json')[app.get('env')];
+
+//環境を表示
+const port = config.port;
+console.log(config.host);
+console.log(config.user);
+console.log(config.password);
 
 // 追記
 app.use(function(req, res, next) {
@@ -16,10 +21,10 @@ app.use(function(req, res, next) {
 app.use(express.urlencoded({extended: true}));
 
   const connection = mysql.createConnection({
-    host: process.env.HOST,
-    user: process.env.DBUSER,
-    password: process.env.DBPASSWORD,
-    database: process.env.DATABASE
+    host: config.host,
+    user: config.user,
+    password: config.password,
+    database: config.database
   });
 
 

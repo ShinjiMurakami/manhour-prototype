@@ -1,5 +1,5 @@
 import React from "react";
-import axios from 'axios';
+// import axios from 'axios';
 
 const style = {
   backgroundColor: "#cccccc",
@@ -10,6 +10,12 @@ const style = {
   margin: "8px"
 };
 
+// axios を require してインスタンスを生成する
+const axiosBase = require('axios');
+const axios = axiosBase.create({
+  baseURL: process.env.REACT_APP_BASEURL  // バックエンドのURL:PORT を指定
+});
+
 export default class InputUser extends React.Component {
   constructor(props) {
     super(props);
@@ -17,17 +23,17 @@ export default class InputUser extends React.Component {
       posts: []
       , userText: ""
       , departmentid: ""
-   };
+    };
 
-   this.onChangeUser = this.onChangeUser.bind(this);
-   this.handleChange = this.handleChange.bind(this);
+  this.onChangeUser = this.onChangeUser.bind(this);
+  this.handleChange = this.handleChange.bind(this);
 
-    axios.post('http://localhost:3001/getDepartment')
-    .then(response => response.data)
-    .then((result) => {this.setState({posts: result})})            
-    .catch(function (error) {
-        console.log("error", error);
-    })
+  axios.post('/getDepartment')
+  .then(response => response.data)
+  .then((result) => {this.setState({posts: result})})            
+  .catch(function (error) {
+      console.log("error", error);
+  })
   
   };
   
@@ -35,7 +41,7 @@ export default class InputUser extends React.Component {
     const params = new URLSearchParams();
     params.append('user_name', user_name);
     params.append('depertment_id', depertment_id);
-    axios.post('http://localhost:3001/add', params)
+    axios.post('/add', params)
     .then(response => response.data)
     .catch(function (error) {
         console.log("error", error);
